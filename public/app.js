@@ -391,6 +391,11 @@ app.controller('logtrail', function ($scope, kbnUrl, $route, $routeParams,
       for (var i = config.index_patterns.length - 1; i >= 0; i--) {
         if (config.index_patterns[i].name === $scope.selected_index_pattern) {
           selectedIndexConfig = config.index_patterns[i];
+
+          if (selectedIndexConfig.default_search) {
+            $scope.userSearchText = selectedIndexConfig.default_search;
+            searchText = selectedIndexConfig.default_search
+          }
           break;
         }
       }
