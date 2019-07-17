@@ -60,11 +60,11 @@ app.controller('logtrail', function ($scope, kbnUrl, $route, $routeParams,
       }
       //populate index_patterns
       for (let i = config.index_patterns.length - 1; i >= 0; i--) {
-        $scope.index_patterns.push(config.index_patterns[i].es.default_index);
+        $scope.index_patterns.push(config.index_patterns[i].name);
       }
       if($routeParams.i) {
         for (let i = config.index_patterns.length - 1; i >= 0; i--) {
-          if (config.index_patterns[i].es.default_index === $routeParams.i) {
+          if (config.index_patterns[i].name === $routeParams.i) {
             selectedIndexConfig = config.index_patterns[i];
             break;
           }
@@ -73,7 +73,7 @@ app.controller('logtrail', function ($scope, kbnUrl, $route, $routeParams,
       if (selectedIndexConfig === null) {
         selectedIndexConfig = config.index_patterns[0];
       }
-      $scope.selected_index_pattern = selectedIndexConfig.es.default_index;
+      $scope.selected_index_pattern = selectedIndexConfig.name;
 
       //init scope vars from get params if available
       if ($routeParams.q) {
@@ -340,7 +340,7 @@ app.controller('logtrail', function ($scope, kbnUrl, $route, $routeParams,
       time = 'Now';
     }
 
-    $location.path('/').search({q: searchText, h: host, t:time, i:selectedIndexConfig.es.default_index});
+    $location.path('/').search({q: searchText, h: host, t:time, i:selectedIndexConfig.name});
 
     if ($scope.pickedDateTime != null) {
       var timestamp = Date.create($scope.pickedDateTime).getTime();
@@ -385,9 +385,9 @@ app.controller('logtrail', function ($scope, kbnUrl, $route, $routeParams,
   };
 
   $scope.onSettingsChange = function () {
-    if ($scope.selected_index_pattern !== selectedIndexConfig.es.default_index) {
+    if ($scope.selected_index_pattern !== selectedIndexConfig.name) {
       for (var i = config.index_patterns.length - 1; i >= 0; i--) {
-        if (config.index_patterns[i].es.default_index === $scope.selected_index_pattern) {
+        if (config.index_patterns[i].name === $scope.selected_index_pattern) {
           selectedIndexConfig = config.index_patterns[i];
           break;
         }
