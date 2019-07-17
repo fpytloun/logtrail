@@ -340,7 +340,7 @@ app.controller('logtrail', function ($scope, kbnUrl, $route, $routeParams,
       time = 'Now';
     }
 
-    $location.path('/').search({q: searchText, h: host, t:time, i:selectedIndexConfig.name});
+    $location.path('/').search({q: searchText, h: host, t:time, i:selectedIndexConfig.es.default_index});
 
     if ($scope.pickedDateTime != null) {
       var timestamp = Date.create($scope.pickedDateTime).getTime();
